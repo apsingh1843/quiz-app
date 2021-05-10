@@ -1,38 +1,50 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Goblin+One&display=swap');
+
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body{
+  background-image: url('1.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height:100vh;
+}
+.head{
+  font-size: 50px;
+  font-family: 'Goblin One', cursive;
+  color: rgb(41, 3, 80);
+  text-shadow: 2px 3px 8px #000000;
   text-align: center;
+  padding: 30px 0px;
+}
+.head2{
+  font-size: 25px;
+  font-family: 'Goblin One', cursive;
+  color: rgb(41, 3, 80);
+  text-shadow: 1px 2px 7px #000000;
+  text-align: center;
+  margin-bottom: 30px;
+}
+.link {
+  color:white;
+  text-decoration: none;
+}
+.link:hover{
+  color:white;
+  text-decoration: none;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.cardbody{
+  text-align: center;
+  background-color: rgb(41, 3, 80);
   color: white;
+  box-shadow: 0px 5px 8px #000000;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.btn-pn{
+  display: flex;
+  margin-top: 15px;
 }
