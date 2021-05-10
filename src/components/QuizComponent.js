@@ -1,40 +1,6 @@
 import React, { Component } from 'react';
-import { Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Button } from 'reactstrap';
+import { Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Button , CardFooter} from 'reactstrap';
 import { Link } from 'react-router-dom';
-
-class  Options extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      correctAnswer: this.props.options.correctIndex,
-      score: null,
-    }
-  }
-
-  checkAnswer= (e) => {
-    const target = e.target;
-    const value = target.value;
-    //console.log(value, this.state.correctAnswer);
-    if(value == this.state.correctAnswer){
-      this.setState({
-        score: this.state.score + 1,
-      })
-      console.log(this.state.score);
-    }
-  }
-
-  render() {
-    return(
-      <div>
-      <Button type="button" value='0' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.options.answers[0]}</Button>
-      <Button type="button" value='1' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.options.answers[1]}</Button>
-      <Button type="button" value='2' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.options.answers[2]}</Button>
-      <Button type="button" value='3' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.options.answers[3]}</Button>
-      </div>
-    );
-  }
-};
-
 
 
 class Quiz extends Component {
@@ -43,30 +9,53 @@ class Quiz extends Component {
       this.state = {
         isSubmit: false,
         questionId : 1,
+        score: 0,
+        selected: false,
       }
-    };
+      this.checkAnswer = this.checkAnswer.bind(this);
+      this.submitQuiz = this.submitQuiz.bind(this);
+      this.handlePrev = this.handlePrev.bind(this);
+      this.handleNext = this.handleNext.bind(this);
 
-    submitQuiz = () => {
+    }
+
+    checkAnswer(e){
+      const target = e.target;
+      const value = target.value;
+      const correctAnswer = this.props.questions[this.state.questionId-1].correctIndex;
+
+      if (value) {
+        this.setState({
+          selected: true,
+        },() => console.log(this.state.selected))
+
+      }
+
+      console.log(value, correctAnswer);
+      if(value == correctAnswer ){
+        this.setState({
+          score: this.state.score + 1,
+        },() => console.log(this.state.score))
+      };
+    }
+
+    submitQuiz(){
       this.setState({
         isSubmit: true,
       })
     }
 
-    handlePrev = () => {
+    handlePrev(){
       this.setState({
         questionId: this.state.questionId - 1,
       })
     };
 
-    handleNext = () => {
+    handleNext() {
       this.setState({
         questionId: this.state.questionId + 1,
       })
     };
-
-    componentDidMount(){
-      console.log(this.props)
-    }
 
     render() {
       let nextButton = <Button type="button" onClick={this.handleNext} className="bg-primary  ml-auto"><b>Next</b> <span className="fa fa-arrow-right"></span></Button>
@@ -87,7 +76,7 @@ class Quiz extends Component {
                 <CardBody className="cardbody">
                   <CardTitle>
                     <h4>Question: {this.state.questionId}</h4><br/>
-                    <h6>{this.props.questions.[this.state.questionId-1].question}</h6>
+                    <h6>{this.props.questions[this.state.questionId-1].question}</h6>
                   </CardTitle>
                 </CardBody>
               </Card>
@@ -100,9 +89,12 @@ class Quiz extends Component {
               <Card>
                 <CardBody className="cardbody">
                   <CardTitle>
-                    <Options options={this.props.questions[this.state.questionId-1]}
-                      score={this.state.score} />
+                    <Button type="button" value='0'  className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.questions[this.state.questionId-1].answers[0]}</Button>
+                    <Button type="button" value='1' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.questions[this.state.questionId-1].answers[1]}</Button>
+                    <Button type="button" value='2' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.questions[this.state.questionId-1].answers[2]}</Button>
+                    <Button type="button" value='3' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.questions[this.state.questionId-1].answers[3]}</Button>
                   </CardTitle>
+                  <CardFooter><h4>Score : {this.state.score }</h4></CardFooter>
                 </CardBody>
               </Card>
             </div>
