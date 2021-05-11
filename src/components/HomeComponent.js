@@ -17,8 +17,8 @@ class Home extends Component {
 
     this.setState({
       [name]: value
-    });
-    console.log(this.state);
+    }, ()=> console.log(this.state));
+
   }
 
   render() {
@@ -29,16 +29,8 @@ class Home extends Component {
             <CardBody className="cardbody">
               <CardTitle>
                 <h3>Welcome Quizzer!</h3><br/>
-                <h4>What should we call you?</h4>
+                <Button type="button" className="bg-primary"><Link to ="/quiz" className="link">Start Quiz</Link></Button>
               </CardTitle>
-              <CardText>
-                  <Form onSubmit={this.handleUser}>
-                    <FormGroup>
-                      <Input type="text" id="username" name="username" placeholder="Your Name"/>
-                    </FormGroup>
-                    <Button type="submit" value="submit" className="bg-primary"><Link to="/quiz" className="link">Start Quiz</Link></Button>
-                  </Form>
-              </CardText>
             </CardBody>
           </Card>
         </div>
@@ -48,3 +40,10 @@ class Home extends Component {
 }
 
 export default Home;
+
+/*<Form onSubmit={this.handleUser}>
+  <FormGroup>
+    <Input type="text" id="username" name="username" placeholder="Your Name" required/>
+  </FormGroup>
+  <Button type="submit" value="submit" className="bg-primary">Start Quiz</Button>
+</Form>*/

@@ -11,14 +11,7 @@ class Main extends Component {
     super(props);
     this.state = {
       questions: QUESTIONS,
-      username: '',
     }
-  }
-
-  nameCallback = (name) => {
-    this.setState({
-      username: name,
-    })
   }
 
   render() {
@@ -28,7 +21,7 @@ class Main extends Component {
          <div className="container">
             <h1 className="head">Quiz App</h1>
             <Switch>
-              <Route path="/home" component={() => <Home nameCallback={this.nameCallback} /> } />
+              <Route path="/home" component={ Home } />
               <Route path="/quiz" component={()=> <Quiz questions={this.state.questions} /> } />
               <Redirect to="/home" />
             </Switch>
@@ -39,3 +32,5 @@ class Main extends Component {
 }
 
 export default Main;
+
+//<Route path="/home" component={() => <Home nameCallback={this.nameCallback} /> } />

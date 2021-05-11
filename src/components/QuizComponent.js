@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardBody, CardTitle, Form, FormGroup, Input, Label, Button , CardFooter} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import Timer from './timerComponent';
 
 
 class Quiz extends Component {
@@ -10,7 +11,6 @@ class Quiz extends Component {
         isSubmit: false,
         questionId : 1,
         score: 0,
-        selected: false,
       }
       this.checkAnswer = this.checkAnswer.bind(this);
       this.submitQuiz = this.submitQuiz.bind(this);
@@ -24,10 +24,10 @@ class Quiz extends Component {
       const value = target.value;
       const correctAnswer = this.props.questions[this.state.questionId-1].correctIndex;
 
-      if (value) {
+      if (this.state.questionId != 6) {
         this.setState({
-          selected: true,
-        },() => console.log(this.state.selected))
+          questionId: this.state.questionId + 1,
+        })
 
       }
 
@@ -62,11 +62,28 @@ class Quiz extends Component {
       if(this.state.questionId === 6){
         nextButton = <Button type="button" onClick={this.submitQuiz} className="bg-primary  ml-auto"><b>Submit Quiz</b></Button>
       }
+
+      let scoreView = '';
+      if(this.state.isSubmit){
+        scoreView = 'Score : ' + this.state.score;
+      }
+
+
       return(
         <div>
           <div className="row">
             <div className="col-12">
               <h1 className="head2">Hey XYZ, Good Luck!</h1>
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="col-12 col-md-6 offset-md-3">
+             <Card>
+              <CardBody className="cardbody">
+               <Timer />
+              </CardBody>
+             </Card>
             </div>
           </div>
 
@@ -94,21 +111,25 @@ class Quiz extends Component {
                     <Button type="button" value='2' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.questions[this.state.questionId-1].answers[2]}</Button>
                     <Button type="button" value='3' className="bg-secondary btn-block" onClick={this.checkAnswer}>{this.props.questions[this.state.questionId-1].answers[3]}</Button>
                   </CardTitle>
-                  <CardFooter><h4>Score : {this.state.score }</h4></CardFooter>
+                  <CardFooter><h4>{scoreView}</h4></CardFooter>
                 </CardBody>
               </Card>
             </div>
           </div>
           <div className="row">
               <div className="col-12  col-md-6 offset-md-3 btn-pn">
-               {this.state.questionId > 1 ? <Button type="button" onClick={this.handlePrev} className="bg-primary"><b><span className="fa fa-arrow-left"></span> Previous</b></Button> : null }
-               <Button type="button" className="bg-danger ml-4"><Link to="/home" className="link"><b><span className="fa fa-times-circle"></span> Quit</b></Link></Button>
-                { nextButton }
+
+               <Button type="button" className="bg-danger"><Link to="/home" className="link"><b><span className="fa fa-times-circle"></span> Quit</b></Link></Button>
+               {nextButton}
               </div>
           </div>
+
         </div>
       );
     }
 }
 
 export default Quiz;
+
+//{this.state.questionId > 1 && !this.state.isSubmit ? <Button type="button" onClick={this.handlePrev} className="bg-primary"><b><span className="fa fa-arrow-left"></span> Previous</b></Button> : null }
+//{ nextButton }
